@@ -1,6 +1,5 @@
 import styled from "styled-components/native";
 import { Gray } from "@/constants/colors";
-import { WithDarkMode } from "@/util/withDarkMode";
 
 export const TextStyled = styled.Text({
   color: Gray.Gray100,
@@ -11,19 +10,22 @@ export const TextStyled = styled.Text({
 
 export interface WideButtonStyledProps {
   isActive: boolean;
+  width?: number;
+  marginRight?: number;
 }
 
-export const TouchableOpacityStyled = WithDarkMode(
-  styled.TouchableOpacity<WideButtonStyledProps>(({ isActive }) => {
+export const TouchableOpacityStyled = styled.TouchableOpacity<WideButtonStyledProps>(
+  ({ isActive, width, marginRight }) => {
     const backgroundColor = isActive ? Gray.Gray500 : Gray.Gray800;
     return {
       backgroundColor,
       borderRadius: 10,
-      height: 35,
-      width: 35,
+      height: width ?? 35,
+      width: width ?? 35,
+      marginRight: marginRight ?? 0,
       display: `flex`,
       justifyContent: `center`,
       alignItems: `center`,
     };
-  }),
+  },
 );

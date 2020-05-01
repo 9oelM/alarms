@@ -4,7 +4,7 @@ import { Dimensions, ScaledSize } from "react-native";
 const window = Dimensions.get(`window`);
 const screen = Dimensions.get(`screen`);
 
-interface WindowAndScreen {
+export interface WindowAndScreen {
   window: ScaledSize;
   screen: ScaledSize;
 }

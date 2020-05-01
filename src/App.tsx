@@ -7,9 +7,11 @@ import { DarkModeProvider } from "react-native-dark-mode";
 
 import { configureStore } from "./redux/store";
 
-import { AlarmSetting } from "@/Pages/AlarmSetting";
+import { Main } from "@/Pages/Main";
+import { Sound } from "@/Pages/Sound";
 import { withSafeAreaView } from "@/util/withSafeAreaView";
 import { PersistGate } from "redux-persist/integration/react";
+import { SOUND, MAIN } from "./constants/screens";
 
 const { getStore, getPersistor } = configureStore();
 const Stack = createStackNavigator();
@@ -27,11 +29,8 @@ const App: FC = () => {
               screenOptions={{
                 headerShown: false,
               }}>
-              {/* <Stack.Screen name="Alarms" component={Landing} /> */}
-              <Stack.Screen
-                name="AlarmSetting"
-                component={withSafeAreaView(AlarmSetting)}
-              />
+              <Stack.Screen name={MAIN} component={withSafeAreaView(Main)} />
+              <Stack.Screen name={SOUND} component={withSafeAreaView(Sound)} />
             </Stack.Navigator>
           </NavigationContainer>
         </DarkModeProvider>

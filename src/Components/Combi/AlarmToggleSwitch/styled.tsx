@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { outMostViewPadding } from "@/constants/padding";
+import { OUT_MOST_VIEW_PADDING } from "@/constants/padding";
 
 export const ContainerStyled = styled.View({
   flex: 1,
@@ -13,5 +13,5 @@ export const maginNumberImNotSureAboutThatMakesPaddingCorrect = 30;
 export const SwitchContainerStyled = styled.View({
   flex: 1,
   position: `absolute`,
-  right: outMostViewPadding - maginNumberImNotSureAboutThatMakesPaddingCorrect,
+  right: OUT_MOST_VIEW_PADDING - maginNumberImNotSureAboutThatMakesPaddingCorrect,
 });

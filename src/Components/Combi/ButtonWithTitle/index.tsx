@@ -6,13 +6,24 @@ import { View } from "react-native";
 export interface Props {
   buttonTitle: string;
   mainTitle: string;
+  isActive?: boolean;
+  onPress(): void;
 }
 
-export const ButtonWithTitle: FC<Props> = ({ mainTitle, buttonTitle }) => {
+export const ButtonWithTitle: FC<Props> = ({
+  mainTitle,
+  buttonTitle,
+  onPress,
+  isActive,
+}) => {
   return (
     <View>
       <Title>{mainTitle}</Title>
-      <WideButton onPress={() => {}} title={buttonTitle} />
+      <WideButton
+        isActive={Boolean(isActive)}
+        onPress={onPress}
+        title={buttonTitle}
+      />
     </View>
   );
 };

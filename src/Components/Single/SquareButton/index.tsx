@@ -1,18 +1,17 @@
 import { TouchableOpacityStyled, TextStyled } from "./styled";
-import React, { FC, useCallback } from "react";
-import { Days } from "@/redux/actions";
+import React, { FC } from "react";
 
 export interface Props {
   title: string;
-  onPress(day: Days): void;
+  onPress(): void;
   isActive: boolean;
+  width?: number;
+  marginRight?: number;
 }
 
-export const SquareButton: FC<Props> = ({ title, onPress, isActive }) => {
-  const handleOnPress = useCallback(onPress, []);
-
+export const SquareButton: FC<Props> = ({ title, ...others }) => {
   return (
-    <TouchableOpacityStyled onPress={handleOnPress} isActive={isActive}>
+    <TouchableOpacityStyled {...others}>
       <TextStyled>{title}</TextStyled>
     </TouchableOpacityStyled>
   );

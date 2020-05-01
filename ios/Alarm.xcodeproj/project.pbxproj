@@ -17,8 +17,8 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* AlarmTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* AlarmTests.m */; };
+		673501BF7938E37EBE3677C5 /* libPods-Alarm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98159F783560B27DD1979DE0 /* libPods-Alarm.a */; };
 		9E57E631C4CE47AB1C64027F /* libPods-Alarm-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F564840A9C9798A2ECFA8C9 /* libPods-Alarm-tvOSTests.a */; };
-		B712B388C8BECC497FE6C418 /* libPods-Alarm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98159F783560B27DD1979DE0 /* libPods-Alarm.a */; };
 		C7F3C226DBE012E8EEB30FA0 /* libPods-Alarm-AlarmTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD8BC6A5CFA910FFD236517A /* libPods-Alarm-AlarmTests.a */; };
 /* End PBXBuildFile section */
 
@@ -82,7 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B712B388C8BECC497FE6C418 /* libPods-Alarm.a in Frameworks */,
+				673501BF7938E37EBE3677C5 /* libPods-Alarm.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,7 +194,6 @@
 				201CD1A6D9507136F1874BD4 /* Pods-Alarm-tvOSTests.debug.xcconfig */,
 				00155E72BE914DD7C94C80B3 /* Pods-Alarm-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

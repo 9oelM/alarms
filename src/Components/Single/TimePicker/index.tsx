@@ -1,39 +1,75 @@
-import React, { useState, FC } from "react";
-import { View, Button, Platform, Text } from "react-native";
+import React, { FC, SetStateAction, Dispatch, useEffect } from "react";
+import { Platform, TouchableOpacity } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { mode } from "@/constants/timePicker";
+import { Time } from "@/typings";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/redux/reducers";
+import { AddAlarmStartingTime, AddAlarmEndingTime } from "@/redux/actions";
+import {
+  HeaderStyled,
+  ContainerStyled,
+  DateTimePickerContainerStyled,
+  TextStyled,
+} from "./styled";
 
 export interface Props {
-  instruction: string;
+  timeType: Time;
+  setTimeType: Dispatch<SetStateAction<Time | null>>;
 }
 
-export const TimePicker: FC<Props> = ({ instruction }) => {
-  const [date, setDate] = useState(new Date(1598051730000));
+export const TimePicker: FC<Props> = ({ timeType, setTimeType }) => {
+  const { startTime, endTime } = useSelector((s: RootState) => ({
+    startTime: s.alarmStartingTime,
+    endTime: s.alarmEndingTime,
+  }));
+  const dispatch = useDispatch();
 
-  // const onChange = (event, selectedDate) => {
-  //   const currentDate = selectedDate || date;
-  //   setShow(Platform.OS === `ios`);
-  //   setDate(currentDate);
-  // };
+  const [s, e] = [startTime, endTime].map((t) => t.getTime());
 
-  // const showMode = (currentMode) => {
-  //   setShow(true);
-  //   setMode(currentMode);
-  // };
+  useEffect(() => {
+    Platform.OS === `android` && setTimeType(() => null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [s, e]);
 
-  return (
-    <View>
-      <Text>{instruction}</Text>
-      <DateTimePicker
-        testID="dateTimePicker"
-        timeZoneOffsetInMinutes={0}
-        value={date}
-        mode={mode}
-        is24Hour={true}
-        display="default"
-        // onChange={onChange}
-      />
-    </View>
+  const dateTimePicker = (
+    <DateTimePicker
+      testID="dateTimePicker"
+      timeZoneOffsetInMinutes={Platform.OS === `ios` ? 60 * 9 : 0}
+      value={timeType === `start` ? startTime : endTime}
+      mode={mode}
+      is24Hour={true}
+      display="default"
+      onChange={(evt, selectedDate) => {
+        if (!selectedDate || evt.type === `dismissed`) {
+          setTimeType(() => null);
+
+          return;
+        }
+
+        if (timeType === `start`) {
+          dispatch(AddAlarmStartingTime({ time: selectedDate }));
+        } else {
+          dispatch(AddAlarmEndingTime({ time: selectedDate }));
+        }
+      }}
+    />
+  );
+  return Platform.OS === `ios` ? (
+    <ContainerStyled>
+      <DateTimePickerContainerStyled>
+        {dateTimePicker}
+      </DateTimePickerContainerStyled>
+      <HeaderStyled>
+        <TouchableOpacity onPress={() => setTimeType(() => null)}>
+          <TextStyled>Done</TextStyled>
+        </TouchableOpacity>
+      </HeaderStyled>
+    </ContainerStyled>
+  ) : (
+    <>{dateTimePicker}</>
   );
 };
+
+// export const TimePicker = Platform.OS === `ios` ? () =>RawTimePicker;

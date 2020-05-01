@@ -1,5 +1,7 @@
 import { ActionTypes } from "./actionTypes";
 import { Action } from "redux";
+import { Days } from "@/typings";
+import { SoundFile } from "@/constants/sounds";
 
 // type Action<T, Parameter> = (params: Parameter) => { type: T } & Parameter;
 
@@ -43,15 +45,35 @@ interface ToggleDayPayload {
 
 export type ToggleDayAction = Action<ActionTypes.TOGGLE_DAY> & ToggleDayPayload;
 
-export type Days = `Mon` | `Tue` | `Wed` | `Thu` | `Fri` | `Sat` | `Sun`;
-
 export const ToggleDay: (targetDay: Days) => ToggleDayAction = (targetDay) => ({
   type: ActionTypes.TOGGLE_DAY,
   day: targetDay,
+});
+
+interface SelectAlarmSoundPayload {
+  sound: SoundFile;
+}
+
+export type SelectAlarmSoundAction = Action<ActionTypes.SELECT_SOUND> &
+  SelectAlarmSoundPayload;
+
+export const SelectAlarmSound: (sound: SoundFile) => SelectAlarmSoundAction = (
+  sound,
+) => ({
+  type: ActionTypes.SELECT_SOUND,
+  sound,
+});
+
+export type ToggleAlarmVibrationAction = Action<ActionTypes.TOGGLE_VIBRATION>;
+
+export const ToggleAlarmVibration: () => ToggleAlarmVibrationAction = () => ({
+  type: ActionTypes.TOGGLE_VIBRATION,
 });
 
 export type AllActions =
   | AddAlarmStartingTimeAction
   | AddAlarmEndingTimeAction
   | ToggleAlarmAction
-  | ToggleDayAction;
+  | ToggleDayAction
+  | SelectAlarmSoundAction
+  | ToggleAlarmVibrationAction;

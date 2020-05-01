@@ -1,14 +1,19 @@
 import { Reducer } from "redux";
-import { AllActions, Days } from "../actions";
+import { AllActions } from "../actions";
 import { ActionTypes } from "@/redux/actions/actionTypes";
+import { Days } from '@/typings';
+import { SoundFile } from '@/constants/sounds';
 
 export interface RootState {
   alarmStartingTime: Date;
   alarmEndingTime: Date;
   isAlarmEnabled: boolean;
   alarmEnabledDays: {
+    // eslint-disable-next-line prettier/prettier
     [key in Days]: boolean;
   };
+  selectedAlarmSound: SoundFile;
+  isAlarmVibrationEnabled: boolean;
 }
 
 const defaultState: RootState = {
@@ -24,6 +29,8 @@ const defaultState: RootState = {
     'Sat': false,
     'Sun': false,
   },
+  selectedAlarmSound: { displayedName: `None`, fileName: `None` },
+  isAlarmVibrationEnabled: false,
 };
 
 export const rootReducer: Reducer<RootState, AllActions> = (
@@ -54,6 +61,16 @@ export const rootReducer: Reducer<RootState, AllActions> = (
           [action.day]: !state.alarmEnabledDays[action.day],
         },
       };
+    case ActionTypes.SELECT_SOUND:
+        return {
+          ...state,
+          selectedAlarmSound: action.sound,
+      };
+    case ActionTypes.TOGGLE_VIBRATION:
+      return {
+        ...state,
+        isAlarmVibrationEnabled: !state.isAlarmVibrationEnabled,
+    };
     default:
       return state;
   }
