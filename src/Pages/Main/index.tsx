@@ -1,9 +1,8 @@
-import React, { FC, ReactNode, useCallback, useState, useEffect } from "react";
+import React, { FC, useCallback, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
 import { GeneralContainer } from "@/Layouts/GeneralContainer";
-import { Padding, Normalizer } from "@/styled/Padding";
 import { AlarmToggleSwitch } from "@/Components/Combi/AlarmToggleSwitch";
 import { ButtonWithTitle } from "@/Components/Combi/ButtonWithTitle";
 import { RootState } from "@/redux/reducers";
@@ -11,9 +10,6 @@ import { formatHHMM } from "@/util/timeFormat";
 import { DaysPicker } from "@/Components/Combi/DaysPicker";
 import { SOUND } from "@/constants/screens";
 import { normalizer8px, padding25px } from "@/constants/padding";
-
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { mode } from "@/constants/timePicker";
 import { TimePicker } from "@/Components/Single/TimePicker";
 import { Time } from "@/typings";
 
@@ -28,19 +24,11 @@ export const Main: FC = () => {
     endTime: formatHHMM({ date: s.alarmEndingTime }),
   }));
   const navigation = useNavigation();
-  const [isTimePickerVisible, setTimePickerVisible] = useState(false);
   const [timeType, setTimeType] = useState<Time | null>(null);
 
   const navigateToSoundPage = useCallback(() => navigation.navigate(SOUND), [
     navigation,
   ]);
-
-  useEffect(() => {
-    console.log({ isTimePickerVisible });
-    // return () => {
-    //   cleanup
-    // }
-  }, [isTimePickerVisible]);
 
   return (
     <GeneralContainer title="Alarms">
@@ -70,7 +58,7 @@ export const Main: FC = () => {
         mainTitle="Interval"
         buttonTitle="10 mins"
         onPress={() => {
-          setTimePickerVisible(() => true);
+          // setTimePickerVisible(() => true);
         }}
       />
       {padding25px}

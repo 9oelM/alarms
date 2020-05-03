@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Provider } from "react-redux";
@@ -12,6 +12,7 @@ import { Sound } from "@/Pages/Sound";
 import { withSafeAreaView } from "@/util/withSafeAreaView";
 import { PersistGate } from "redux-persist/integration/react";
 import { SOUND, MAIN } from "./constants/screens";
+import { useBackgroundService } from "@/hooks/useBackgroundService";
 
 const { getStore, getPersistor } = configureStore();
 const Stack = createStackNavigator();
@@ -19,6 +20,8 @@ const Stack = createStackNavigator();
 const App: FC = () => {
   const store = getStore();
   const persistor = getPersistor();
+
+  useBackgroundService();
 
   return (
     <Provider store={store}>
