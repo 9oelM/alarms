@@ -20,8 +20,8 @@ export interface TimePickersOpenState {
 
 export const Main: FC = () => {
   const { startTime, endTime } = useSelector((s: RootState) => ({
-    startTime: formatHHMM({ date: s.alarmStartingTime }),
-    endTime: formatHHMM({ date: s.alarmEndingTime }),
+    startTime: formatHHMM({ date: s.Alarm.alarmStartingTime }),
+    endTime: formatHHMM({ date: s.Alarm.alarmEndingTime }),
   }));
   const navigation = useNavigation();
   const [timeType, setTimeType] = useState<Time | null>(null);

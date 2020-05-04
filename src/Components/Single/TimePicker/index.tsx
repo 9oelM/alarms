@@ -6,13 +6,17 @@ import { mode } from "@/constants/timePicker";
 import { Time } from "@/typings";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/reducers";
-import { AddAlarmStartingTime, AddAlarmEndingTime } from "@/redux/actions";
+import {
+  AddAlarmStartingTime,
+  AddAlarmEndingTime,
+} from "@/redux/actions/ALARM";
 import {
   HeaderStyled,
   ContainerStyled,
   DateTimePickerContainerStyled,
   TextStyled,
 } from "./styled";
+import { useAlarmRange } from "@/hooks/useAlarmRange";
 
 export interface Props {
   timeType: Time;
@@ -20,10 +24,7 @@ export interface Props {
 }
 
 export const TimePicker: FC<Props> = ({ timeType, setTimeType }) => {
-  const { startTime, endTime } = useSelector((s: RootState) => ({
-    startTime: s.alarmStartingTime,
-    endTime: s.alarmEndingTime,
-  }));
+  const { startTime, endTime } = useAlarmRange();
   const dispatch = useDispatch();
 
   const [s, e] = [startTime, endTime].map((t) => t.getTime());

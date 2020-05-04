@@ -10,14 +10,14 @@ export const ALARM_SOUNDS: Readonly<Array<SoundFile>> = [
   },
   {
     displayedName: `Blink`,
-    fileName: `blink.mp3`,
+    fileName: `tolling_bell.mp3`,
   },
   {
     displayedName: `Brass`,
-    fileName: `brass.mp3`,
+    fileName: `tolling_bell.mp3`,
   },
   {
     displayedName: `Blazor`,
-    fileName: `blazor.mp3`,
+    fileName: `tolling_bell.mp3`,
   },
 ];

@@ -6,11 +6,11 @@ import { ContainerStyled, SwitchContainerStyled } from "./styled";
 import { Title } from "@/Components/Single/Title";
 import { Gray } from "@/constants/colors";
 import { RootState } from "@/redux/reducers";
-import { ToggleAlarm } from "@/redux/actions/";
+import { ToggleAlarm } from "@/redux/actions/ALARM";
 
 export const AlarmToggleSwitch: FC = () => {
   const dispatch = useDispatch();
-  const isAlarmEnabled = useSelector((s: RootState) => s.isAlarmEnabled);
+  const isAlarmEnabled = useSelector((s: RootState) => s.Alarm.isAlarmEnabled);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const onAlarmToggle = useCallback(() => dispatch(ToggleAlarm()), []);

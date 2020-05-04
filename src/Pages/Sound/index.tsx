@@ -8,7 +8,7 @@ import { WideButton } from "@/Components/Single/WideButton";
 import { ALARM_SOUNDS } from "@/constants/sounds";
 import { ButtonWithTitle } from "@/Components/Combi/ButtonWithTitle";
 import { padding25px } from "@/constants/padding";
-import { SelectAlarmSound, ToggleAlarmVibration } from "@/redux/actions";
+import { SelectAlarmSound, ToggleAlarmVibration } from "@/redux/actions/ALARM";
 import { RootState } from "@/redux/reducers";
 // @ts-ignore
 // import testSound from "@/assets/sounds/test.mp3";
@@ -16,8 +16,8 @@ import { RootState } from "@/redux/reducers";
 export const Sound: FC = () => {
   const { selectedAlarmSound, isAlarmVibrationEnabled } = useSelector(
     (s: RootState) => ({
-      selectedAlarmSound: s.selectedAlarmSound,
-      isAlarmVibrationEnabled: s.isAlarmVibrationEnabled,
+      selectedAlarmSound: s.Alarm.selectedAlarmSound,
+      isAlarmVibrationEnabled: s.Alarm.isAlarmVibrationEnabled,
     }),
   );
   const dispatch = useDispatch();

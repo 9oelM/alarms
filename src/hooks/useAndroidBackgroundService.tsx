@@ -1,9 +1,13 @@
 import { useEffect } from "react";
-import { AppState, AppStateStatus } from "react-native";
+import { AppState, AppStateStatus, Platform } from "react-native";
 import { Heartbeat } from "@/util/Heartbeat";
 
-export const useBackgroundService = () => {
+export const useAndroidBackgroundService = () => {
   useEffect(() => {
+    if (Platform.OS !== `android`) {
+      return;
+    }
+
     const heartbeat: (state: AppStateStatus) => void = (appState) => {
       if (appState === `active`) {
         Heartbeat.stopService();
@@ -15,6 +19,10 @@ export const useBackgroundService = () => {
     AppState.addEventListener(`change`, heartbeat);
 
     return () => {
+      if (Platform.OS !== `android`) {
+        return;
+      }
+
       Heartbeat.stopService();
       AppState.removeEventListener(`change`, heartbeat);
     };
