@@ -3,7 +3,8 @@
 buildscript {
     ext {
         buildToolsVersion = "28.0.3"
-        minSdkVersion = 16
+        // react-native-audio supports from 19
+        minSdkVersion = 19
         compileSdkVersion = 28
         targetSdkVersion = 28
     }

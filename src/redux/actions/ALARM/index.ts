@@ -3,12 +3,6 @@ import { Action } from "redux";
 import { Days } from "@/typings";
 import { SoundFile } from "@/constants/sounds";
 
-// type Action<T, Parameter> = (params: Parameter) => { type: T } & Parameter;
-
-// interface Action<T> {
-//   type: T;
-// }
-
 interface AlarmTimePayload {
   time: Date;
 }

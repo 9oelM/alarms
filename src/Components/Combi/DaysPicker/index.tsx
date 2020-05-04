@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { Title } from "@/Components/Single/Title";
 import { SquareButton } from "@/Components/Single/SquareButton";
 import { useDispatch, useSelector } from "react-redux";
-import { ToggleDay } from "@/redux/actions";
+import { ToggleDay } from "@/redux/actions/ALARM";
 import { RootState } from "@/redux/reducers";
 import { useDimensions } from "@/hooks/useDimensions";
 import {
@@ -17,7 +17,9 @@ export const DaysPicker: FC = () => {
   const daysList: Readonly<Array<string>> = [`M`, `T`, `W`, `T`, `F`, `S`, `S`];
   const dispatch = useDispatch();
 
-  const alarmEnabledDays = useSelector((s: RootState) => s.alarmEnabledDays);
+  const alarmEnabledDays = useSelector(
+    (s: RootState) => s.Alarm.alarmEnabledDays,
+  );
 
   const handleEachDayPress = (idx: number) => {
     return () => dispatch(ToggleDay(IdxToDay[idx]));
