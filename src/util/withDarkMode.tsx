@@ -1,5 +1,5 @@
 import { StyledComponent } from "styled-components";
-import React, { FC } from "react";
+import React from "react";
 import { useDarkMode } from "react-native-dark-mode";
 
 export interface DarkModeProps {

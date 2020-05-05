@@ -73,4 +73,3 @@ export const TimePicker: FC<Props> = ({ timeType, setTimeType }) => {
   );
 };
 
-// export const TimePicker = Platform.OS === `ios` ? () =>RawTimePicker;
