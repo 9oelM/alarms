@@ -64,10 +64,22 @@ export const ToggleAlarmVibration: () => ToggleAlarmVibrationAction = () => ({
   type: ActionTypes.TOGGLE_VIBRATION,
 });
 
+interface ChangeAlarmIntervalPayload {
+  alarmIntervalInMins: number;
+}
+
+export type ChangeAlarmIntervalAction = Action<ActionTypes.CHANGE_ALARM_INTERVAL> & ChangeAlarmIntervalPayload; 
+
+export const ChangeAlarmInterval: (alarmIntervalInMins: number) => ChangeAlarmIntervalAction = (alarmIntervalInMins) => ({
+  type: ActionTypes.CHANGE_ALARM_INTERVAL,
+  alarmIntervalInMins,
+});
+
 export type AllActions =
   | AddAlarmStartingTimeAction
   | AddAlarmEndingTimeAction
   | ToggleAlarmAction
   | ToggleDayAction
   | SelectAlarmSoundAction
-  | ToggleAlarmVibrationAction;
+  | ToggleAlarmVibrationAction
+  | ChangeAlarmIntervalAction;

@@ -1,16 +1,48 @@
-import React, { FC, useState, useCallback } from 'react';
+import React, { FC, useState, useCallback, useEffect } from 'react';
 import { TouchableOpacityStyled, TextStyled } from '../WideButton/styled';
 import { TextInputStyled } from './styled';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@/redux/reducers';
+import { ChangeAlarmInterval } from '@/redux/actions/ALARM';
+import { NativeSyntheticEvent, TextInputSubmitEditingEventData, Alert } from 'react-native';
+import { MAX_ALARM_INTERVAL, MIN_ALARM_INTERVAL } from '@/constants/alarmInterval';
+import { AlertModal } from '@/Components/Single/AlertModal';
 
-export const NumbericInput: FC = () => {
-  const [isToggled, setToggled] = useState(false);
+export const NumberInput: FC = () => {
+  const [isToggled, setToggled] = useState(false); 
+  const [msgAboutAlarmInterval, setMsgAboutAlarmInterval] = useState('');
+  const alarmIntervalInMins = useSelector((s: RootState) => s.Alarm.alarmIntervalInMins);
+  const dispatch = useDispatch();
 
-  const handleOnPress = useCallback(
+  const handleToggle = useCallback(
     () => {
       setToggled((prev) => !prev);
     },
     [],
   );
+
+  const handleSubmitEditing = ({ nativeEvent: { text }}: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
+    let adjustedAlarmIntervalInMinsString: string = text.replace(/[^0-9]/g, '');
+    if (adjustedAlarmIntervalInMinsString === '') {
+      setMsgAboutAlarmInterval(() => `Enter valid alarm interval minutes`); 
+      setToggled(() => false);
+      return;
+    }
+    let adjustedAlarmIntervalInMins: number = Number.parseInt(adjustedAlarmIntervalInMinsString);
+    if (adjustedAlarmIntervalInMins > MAX_ALARM_INTERVAL) {
+      setMsgAboutAlarmInterval(() => `Maximum alarm interval possible is ${MAX_ALARM_INTERVAL} mins.`);
+      adjustedAlarmIntervalInMins = MAX_ALARM_INTERVAL;
+    } else if (adjustedAlarmIntervalInMins < MIN_ALARM_INTERVAL) {
+      setMsgAboutAlarmInterval(() => `Minimum alarm interval possible is ${MIN_ALARM_INTERVAL} min.`);
+      adjustedAlarmIntervalInMins = MIN_ALARM_INTERVAL;
+    }
+    dispatch(ChangeAlarmInterval(adjustedAlarmIntervalInMins));
+    setToggled(() => false);
+  };
+
+  useEffect(() => {
+    if (msgAboutAlarmInterval !== '') setTimeout(() => setMsgAboutAlarmInterval(() => ''), 1500);
+  }, [msgAboutAlarmInterval])
 
   return (
     <>
@@ -18,13 +50,15 @@ export const NumbericInput: FC = () => {
     isToggled ?
       <TextInputStyled 
         keyboardType='numeric'
-        // onChangeText={(text)=> this.onChanged(text)}
-        value='5'
+        autoFocus
+        onBlur={handleToggle}
+        onSubmitEditing={handleSubmitEditing}
+        defaultValue={String(alarmIntervalInMins)}
         maxLength={3}  //setting limit of input
       /> 
       :
       <TouchableOpacityStyled 
-        onPress={handleOnPress}
+        onPress={handleToggle}
         activeOpacity={0.5} 
         style={{ 
           width: '40%',
@@ -36,9 +70,14 @@ export const NumbericInput: FC = () => {
         fontSize: 15,
         }}
       >
-        5 mins
+        {`${alarmIntervalInMins} mins`}
       </TextStyled>
       </TouchableOpacityStyled>
+    }
+    {
+      msgAboutAlarmInterval === '' ? 
+        null : 
+        <AlertModal msg={msgAboutAlarmInterval}/>
     }
     </>
   );

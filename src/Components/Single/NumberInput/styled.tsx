@@ -4,15 +4,15 @@ import { Gray } from '@/constants/colors';
 import { WithDarkMode, DarkModeProps } from '@/util/withDarkMode';
 import { CSSObject } from 'styled-components';
 
-const commonStyle: ({ isDarkMode }: DarkModeProps) => CSSObject = ({ isDarkMode }) => ({
-  width: '30%',
+export const TextInputStyled = WithDarkMode(styled.TextInput<DarkModeProps>(({ isDarkMode }) => ({
   fontFamily: HELVETICA_NEUE,
-  fontSize: '20px',
   fontWeight: 'bold',
-  color: isDarkMode ? Gray.Gray800 : Gray.Gray500,
-  backgroundColor: isDarkMode ? Gray.Gray500 : Gray.Gray800,
-});
-
-export const TextInputStyled = WithDarkMode(styled.TextInput<DarkModeProps>(commonStyle));
-
-// export const ButtonStyled = WithDarkMode(styled.TouchableOpacity<DarkModeProps>(commonStyle));
+  width: '40%',
+  height: 30,
+  padding: 0,
+  borderRadius: 10,
+  fontSize: 15,
+  color: isDarkMode ?  Gray.Gray50 : Gray.Gray800,
+  backgroundColor: isDarkMode ? Gray.Gray800 :Gray.Gray500,
+  textAlign: 'center'
+})));
