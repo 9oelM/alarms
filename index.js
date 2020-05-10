@@ -10,12 +10,17 @@ import { backgroundHeartbeat } from "@/background/background";
 
 AppRegistry.registerComponent(appName, () => App);
 
-const headlessTask = async (a) => {
-  /**
-   * @todo Check alarm here
-   */
-  backgroundHeartbeat(store.getState());
-  store.dispatch(ContinueHeartbeat());
+let ran = false;
+
+const headlessTask = async () => {
+  if (!ran) {
+    store.subscribe(() => {
+      console.log(store.getState().Alarm);
+      backgroundHeartbeat(store.getState())
+      store.dispatch(ContinueHeartbeat());
+    })
+    ran = true;
+  }
 };
 
 AppRegistry.registerHeadlessTask(`Heartbeat`, () => headlessTask);
