@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
 import { Gray } from "@/constants/colors";
 import { WithDarkMode, DarkModeProps } from "@/util/withDarkMode";
+import { HELVETICA_NEUE } from '@/constants/font';
 
 export const ContainerStyled = styled.View({
   backgroundColor: `transparent`,
@@ -43,7 +44,7 @@ export const TextStyled = WithDarkMode(
   styled.Text<DarkModeProps>(({ isDarkMode }) => ({
     fontSize: 20,
     fontWeight: `bold`,
-    fontFamily: `Helvetica Neue`,
+    fontFamily: HELVETICA_NEUE,
     color: isDarkMode ? Gray.Gray200 : Gray.Gray700,
   })),
 );
