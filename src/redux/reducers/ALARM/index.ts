@@ -14,6 +14,7 @@ export interface AlarmState {
   };
   selectedAlarmSound: SoundFile;
   isAlarmVibrationEnabled: boolean;
+  alarmIntervalInMins: number;
 }
 
 const defaultState: AlarmState = {
@@ -31,6 +32,7 @@ const defaultState: AlarmState = {
   },
   selectedAlarmSound: { displayedName: `None`, fileName: `None` },
   isAlarmVibrationEnabled: false,
+  alarmIntervalInMins: 10,
 };
 
 export const Alarm: Reducer<AlarmState, AllActions> = (
@@ -70,6 +72,11 @@ export const Alarm: Reducer<AlarmState, AllActions> = (
       return {
         ...state,
         isAlarmVibrationEnabled: !state.isAlarmVibrationEnabled,
+    };
+    case ActionTypes.CHANGE_ALARM_INTERVAL:
+      return {
+        ...state,
+        alarmIntervalInMins: action.alarmIntervalInMins,
     };
     default:
       return state;

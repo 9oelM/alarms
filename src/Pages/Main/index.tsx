@@ -12,6 +12,10 @@ import { SOUND } from "@/constants/screens";
 import { normalizer8px, padding25px } from "@/constants/padding";
 import { TimePicker } from "@/Components/Single/TimePicker";
 import { Time } from "@/typings";
+import { Title } from '@/Components/Single/Title';
+import { Slider } from '@/Components/Single/Slider';
+import { View } from 'react-native';
+import { SliderWithNumberInput } from '@/Components/Combi/SliderWithNumberInput';
 
 export interface TimePickersOpenState {
   isStartingTime: boolean;
@@ -54,13 +58,11 @@ export const Main: FC = () => {
         }}
       />
       {padding25px}
-      <ButtonWithTitle
-        mainTitle="Interval"
-        buttonTitle="10 mins"
-        onPress={() => {
-          // setTimePickerVisible(() => true);
-        }}
-      />
+      <Title>
+        Interval
+      </Title>
+      {normalizer8px}
+      <SliderWithNumberInput />
       {padding25px}
       <DaysPicker />
       {padding25px}

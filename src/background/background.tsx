@@ -14,12 +14,18 @@ export const backgroundHeartbeat = ({
     isAlarmEnabled, 
     alarmEnabledDays, 
     isAlarmVibrationEnabled,
+    alarmIntervalInMins,
     selectedAlarmSound: { fileName },
   }}: RootState) => {
-  const alarmTimes = calculateAlarmTimes(alarmStartingTime, alarmEndingTime);
+  
+  const alarmTimes = calculateAlarmTimes(alarmStartingTime, alarmEndingTime, alarmIntervalInMins);
+
+  // console.log(alarmTimes);
+  // console.log(new Date());
+  // console.log(alarmTimes.some((t) => areSameMinute(t, new Date())));
 
   if (alarmTimes.some((t) => areSameMinute(t, new Date())) && isAlarmEnabled) {
-    if (fileName !== 'None') playAlarm(fileName);
+  if (fileName !== 'None') playAlarm(fileName);
     if (isAlarmVibrationEnabled) Vibration.vibrate([0, 500, 200, 500], true);
   }
 };

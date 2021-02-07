@@ -1,11 +1,12 @@
 import styled from "styled-components/native";
 import { Gray } from "@/constants/colors";
+import { HELVETICA_NEUE } from '@/constants/font';
 
 export const TextStyled = styled.Text({
   color: Gray.Gray100,
   fontSize: 20,
   fontWeight: `bold`,
-  fontFamily: `Helvetica Neue`,
+  fontFamily: HELVETICA_NEUE,
 });
 
 export interface WideButtonStyledProps {
